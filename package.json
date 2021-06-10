@@ -19,5 +19,8 @@
   "homepage": "https://github.com/natchanon-space/cryptochain#readme",
   "devDependencies": {
     "jest": "^27.0.4"
+  },
+  "dependencies": {
+    "hex-to-binary": "^1.0.1"
   }
 }
