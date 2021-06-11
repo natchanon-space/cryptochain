@@ -1,8 +1,0 @@
-npm i jest@27.0.4 --save-dev
-npm i hex-to-binary@1.0.1 --save
-npm i express@4.17.1 --save //server
-npm i nodemon@2.0.7 --save-dev //alternative node for dev-mode
-npm i body-parser@1.19.0 --save //prases JSON to request
-npm i redis@2.8.0 --save
-npm i cross-env@7.0.3 --save-dev //dev environment variables
-npm i request@2.88.2 --save
