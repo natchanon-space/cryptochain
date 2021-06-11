@@ -26,7 +26,7 @@ class PubSub {
 
         const parsedMessage = JSON.parse(message);
 
-        //the blockchain can be replace with valid chain
+        // the blockchain can be replace with valid chain
         if (channel == CHANNELS.BLOCKCHAIN) {
             this.blockchain.replaceChain(parsedMessage);
         }
@@ -39,7 +39,7 @@ class PubSub {
     }
 
     publish({ channel, message }) {
-        //avoid redundent
+        // avoid redundent
         this.subscriber.unsubscribe(channel, () => {
             this.publisher.publish(channel, message, () => {
                 this.subscriber.subscribe(channel);
@@ -47,7 +47,7 @@ class PubSub {
         })
     }
 
-    //the blockchain able to broadcast its chain
+    // the blockchain able to broadcast its chain
     broadcastChain() {
         this.publish({
             channel: CHANNELS.BLOCKCHAIN,

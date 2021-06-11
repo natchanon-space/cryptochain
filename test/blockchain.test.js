@@ -1,6 +1,6 @@
-const Blockchain =  require("../blockchain");
+const Blockchain = require("../blockchain");
 const Block = require("../blockchain/block");
-const cryptoHash = require("../utils/cryptoHash");
+const { cryptoHash } = require("../utils");
 
 describe("Blockchain", () => {
     // setup
@@ -26,7 +26,7 @@ describe("Blockchain", () => {
         const newData = "foo-new-data";
         blockchain.addBlock({ data: newData });
 
-        expect(blockchain.chain[blockchain.chain.length-1].data).toEqual(newData);
+        expect(blockchain.chain[blockchain.chain.length - 1].data).toEqual(newData);
     });
 
     // methods
@@ -65,8 +65,8 @@ describe("Blockchain", () => {
 
             describe("and the chain contains a block with jumped difficulty", () => {
                 it("returns false", () => {
-                    const lastBlock = blockchain.chain[blockchain.chain.length-1];
-                    
+                    const lastBlock = blockchain.chain[blockchain.chain.length - 1];
+
                     const lastHash = lastBlock.hash;
                     const timestamp = Date.now();
                     const nonce = 0;
@@ -118,7 +118,7 @@ describe("Blockchain", () => {
                 newChain.addBlock({ data: "foo-two" });
                 newChain.addBlock({ data: "foo-three" });
             });
-            
+
             describe("and new the chain is invalid", () => {
                 it("does not replace the chain and logs an error", () => {
                     newChain.chain[2].data = "broken-data";

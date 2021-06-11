@@ -1,5 +1,5 @@
 const Block = require("./block");
-const cryptoHash = require("../utils/cryptoHash");
+const { cryptoHash } = require("../utils");
 
 class Blockchain {
     constructor() {
@@ -7,8 +7,8 @@ class Blockchain {
     }
 
     addBlock({ data }) {
-        const newBlock = Block.minedBlock({ 
-            lastBlock: this.chain[this.chain.length-1],
+        const newBlock = Block.minedBlock({
+            lastBlock: this.chain[this.chain.length - 1],
             data
         });
 
@@ -37,13 +37,13 @@ class Blockchain {
         }
 
         // validated hash
-        for (let i=1; i<chain.length; i++) {
+        for (let i = 1; i < chain.length; i++) {
             const { timestamp, lastHash, hash, nonce, difficulty, data } = chain[i];
-            const actualLastHash = chain[i-1].hash;
-            const lastDifficulty = chain[i-1].difficulty;
+            const actualLastHash = chain[i - 1].hash;
+            const lastDifficulty = chain[i - 1].difficulty;
 
             // i'th block `lastHash` is equal to `hash` of the previos block
-            if  (lastHash !== actualLastHash) {
+            if (lastHash !== actualLastHash) {
                 return false;
             }
 
