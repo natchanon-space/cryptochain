@@ -44,7 +44,7 @@ app.post("/api/transact", (req, res) => {
             transaction.update({ senderWallet: wallet, recipient, amount });
         }
         else {
-            transaction = wallet.createTransaction({ recipient, amount });
+            transaction = wallet.createTransaction({ recipient, amount, chain: blockchain.chain });
         }
     }
     catch (error) {
@@ -68,6 +68,14 @@ app.get("/api/mine-transactions", (req, res) => {
     res.redirect("/api/blocks");
 });
 
+app.get("/api/wallet-info", (req, res) => {
+    const address = wallet.publicKey;
+    res.json({
+        address,
+        balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
+    });
+});
+
 const syncWithRootState = () => {
     request({ url: `${ROOT_NODE_ADRESS}/api/blocks` }, (error, response, body) => {
         if (!error && response.statusCode === 200) {
@@ -78,7 +86,7 @@ const syncWithRootState = () => {
         }
     });
 
-    request({ url: `${ROOT_NODE_ADRESS}/api/transaction-pool-map`}, (error, response, body) => {
+    request({ url: `${ROOT_NODE_ADRESS}/api/transaction-pool-map` }, (error, response, body) => {
         if (!error && response.statusCode === 200) {
             const rootTransactionPoolMap = JSON.parse(body);
 
