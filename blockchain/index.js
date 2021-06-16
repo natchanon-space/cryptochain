@@ -69,16 +69,6 @@ class Blockchain {
                         return false;
                     }
 
-                    const trueBalance = Wallet.calculateBalance({
-                        chain: this.chain,
-                        address: transaction.input.address
-                    });
-
-                    if (transaction.input.amount !== trueBalance) {
-                        console.error("Invalid input amount");
-                        return false;
-                    }
-
                     if(transactionSet.has(transaction)) {
                         console.error("An identical transaction appears more than once in the block");
                         return false;
@@ -88,6 +78,35 @@ class Blockchain {
                     }
                 }
             }
+            
+            // lastest input amount from incoming chain compare with output from local chain
+            // WARNING: this covers only latest transction, so that it must has some method to check overall the chain
+            const inputAddressSet = new Set();
+
+            for (let i = chain.length - 1; i > 0; i--) {
+                const block = chain[i];
+
+                for (let transaction of block.data) {
+                    const address = transaction.input.address;
+
+                    if (address === REWARD_INPUT.address) continue;
+
+                    if (!inputAddressSet.has(address)) {
+                        inputAddressSet.add(address);
+
+                        const trueBalance = Wallet.calculateBalance({
+                            chain: this.chain,
+                            address
+                        });
+
+                        if (trueBalance != transaction.input.amount) {
+                            console.error("Invalid input data");
+                            return false;
+                        }
+                    }
+                }
+            }
+
         }
 
         return true;
