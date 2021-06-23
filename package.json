@@ -37,9 +37,13 @@
     "elliptic": "^6.5.4",
     "express": "^4.17.1",
     "hex-to-binary": "^1.0.1",
+    "history": "^5.0.0",
     "parcel-bundler": "^1.12.5",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "redis": "^3.1.2",
     "request": "^2.88.2",
     "uuid": "^8.3.2"
